@@ -5,8 +5,8 @@ export async function createUserOnStartup() {
   try {
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
-    const encryptedPassword = await bcrypt.hash("123456", salt);
-    await User.create({ login: "kanban", senha: encryptedPassword });
+    const encryptedPassword = await bcrypt.hash(process.env.SENHA!, salt);
+    await User.create({ login: process.env.LOGIN, senha: encryptedPassword });
 
     console.log("Created user on startup");
   } catch (error) {

@@ -4,7 +4,7 @@ import jsonwebtoken from "jsonwebtoken";
 export const authorize = (req: Request, res: Response, next: NextFunction) => {
   try{
     const token = req.headers.authorization!.split(" ")[1];
-    req.body.user = jsonwebtoken.verify(token, "KANBAN");
+    req.body.user = jsonwebtoken.verify(token,  process.env.API_SECRET!);
     next();
   }catch (e){
     return res.status(401).json({

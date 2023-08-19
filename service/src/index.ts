@@ -1,6 +1,6 @@
+require('dotenv').config();
 import express from "express";
 import mongoose from "mongoose";
-import path from "node:path";
 import {router} from "./router";
 import http from "node:http";
 import {Server} from "socket.io";

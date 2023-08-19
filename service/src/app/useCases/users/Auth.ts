@@ -30,7 +30,7 @@ export const auth = async (req: Request, res: Response)=> {
 
       const token = jsonwebtoken.sign(
         { id: user._id },
-        "KANBAN",{expiresIn: 86400}
+        process.env.API_SECRET!,{expiresIn: 86400}
       );
       return res.status(200).json({
         token: token
