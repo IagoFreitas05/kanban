@@ -26,6 +26,20 @@ services:
       - mongodb
     networks:
       - app-network
+  react-app:
+    image: node:18
+    container_name: react-app
+    working_dir: /client
+    volumes:
+      - ./client:/client
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    command: >
+      sh -c "yarn install && yarn build && npx serve -s build"
+    networks:
+      - app-network
 
 networks:
   app-network:
