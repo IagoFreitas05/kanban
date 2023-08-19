@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import {api} from '../../utils/api.ts';
 import socketIo from "socket.io-client";
 import {toast} from 'react-toastify';
+
 export function Orders() {
     const [orders, setOrders] = useState<Order[]>([]);
 
@@ -46,21 +47,21 @@ export function Orders() {
         <Container>
             <OrdersBoard
                 icon="🕒"
-                title="Fila de espera"
+                title="ToDo"
                 orders={waiting}
                 onCancelOrder={handleCancelOrder}
                 onChangeOrderStatus={handleOrderStatusChange}
             />
             <OrdersBoard
                 icon="👨🏻‍🍳"
-                title="Em preparação"
+                title="Doing"
                 orders={inProduction}
                 onCancelOrder={handleCancelOrder}
                 onChangeOrderStatus={handleOrderStatusChange}
             />
             <OrdersBoard
                 icon="✅"
-                title="Pronto!"
+                title="Done"
                 orders={done}
                 onCancelOrder={handleCancelOrder}
                 onChangeOrderStatus={handleOrderStatusChange}
