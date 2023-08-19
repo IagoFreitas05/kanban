@@ -1,11 +1,11 @@
 import { Router } from "express";
-import {auth} from "./app/useCases/users/Auth";
-import {createCard} from "./app/useCases/cards/CreateCard";
-import {authorize} from "./app/middlewares/authorize";
-import {deleteCard} from "./app/useCases/cards/DeleteCard";
-import {listCards} from "./app/useCases/cards/ListCards";
-import {changeCard} from "./app/useCases/cards/ChangeCard";
-import {logAction} from "./app/middlewares/logAction";
+import { auth } from "./app/useCases/users/Auth";
+import { createCard } from "./app/useCases/cards/CreateCard";
+import { authorize } from "./app/middlewares/authorize";
+import { deleteCard } from "./app/useCases/cards/DeleteCard";
+import { listCards } from "./app/useCases/cards/ListCards";
+import { changeCard } from "./app/useCases/cards/ChangeCard";
+import { logAction } from "./app/middlewares/logAction";
 
 export const router = Router();
 

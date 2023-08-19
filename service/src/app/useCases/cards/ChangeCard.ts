@@ -20,7 +20,7 @@ export async function changeCard(req: Request, res: Response) {
     const card = await Card.findByIdAndUpdate(
       id,
       { titulo, conteudo, lista },
-      { new: true }
+      { new: true },
     );
 
     if (!card) {
@@ -33,4 +33,3 @@ export async function changeCard(req: Request, res: Response) {
     res.status(500).json({ error: "Não foi possível atualizar o card" });
   }
 }
-

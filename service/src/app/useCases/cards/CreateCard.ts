@@ -1,5 +1,5 @@
-import {Request, Response} from "express";
-import {Card} from "../../models/Card";
+import { Request, Response } from "express";
+import { Card } from "../../models/Card";
 
 export async function createCard(req: Request, res: Response) {
   const { titulo, conteudo, lista } = req.body;
@@ -15,14 +15,14 @@ export async function createCard(req: Request, res: Response) {
     errors.push("Lista é necessário");
   }
 
-  if(!["TO_DO","DOING","DONE"].includes(lista)){
+  if (!["TO_DO", "DOING", "DONE"].includes(lista)) {
     errors.push("O nome da sua lista precisa ser: TO_DO, DOING ou DONE");
   }
 
   if (errors.length > 0) {
     res.status(400).json({ errors });
   } else {
-    const card = await Card.create({conteudo, titulo, lista});
+    const card = await Card.create({ conteudo, titulo, lista });
     res.status(200).json({ card });
   }
 }

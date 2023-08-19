@@ -1,14 +1,14 @@
-import {NextFunction, Request, Response} from "express";
+import { NextFunction, Request, Response } from "express";
 import jsonwebtoken from "jsonwebtoken";
 
 export const authorize = (req: Request, res: Response, next: NextFunction) => {
-  try{
+  try {
     const token = req.headers.authorization!.split(" ")[1];
-    req.body.user = jsonwebtoken.verify(token,  process.env.API_SECRET!);
+    req.body.user = jsonwebtoken.verify(token, process.env.API_SECRET!);
     next();
-  }catch (e){
+  } catch (e) {
     return res.status(401).json({
-      error:"Invalid token"
-    })
+      error: "Invalid token",
+    });
   }
-}
+};
