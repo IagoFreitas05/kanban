@@ -1,6 +1,6 @@
 import { api } from "../utils/api.ts";
-import {toast} from "react-toastify";
-import {Card} from "../types/Card.ts";
+import { toast } from "react-toastify";
+import { Card } from "../types/Card.ts";
 
 const token = localStorage.getItem("token");
 
@@ -61,16 +61,12 @@ export async function changeCard(card: Card) {
 
 export async function deleteCard(id: string) {
     try {
-        return await api.delete(
-            `cards/${id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+        return await api.delete(`cards/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
-        );
+        });
     } catch (e) {
         return e;
     }
 }
-

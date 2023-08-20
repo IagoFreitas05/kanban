@@ -1,9 +1,9 @@
-import {useEffect, useState} from 'react';
-import closeIcon from '../../assets/images/close-icon.svg';
-import {ModalBody, Overlay, Actions, FormGroup} from './styles';
-import {changeCard, saveCard} from "../../services/CardService.ts";
-import {toast} from "react-toastify";
-import {Card} from "../../types/Card.ts";
+import { useEffect, useState } from "react";
+import closeIcon from "../../assets/images/close-icon.svg";
+import { ModalBody, Overlay, Actions, FormGroup } from "./styles";
+import { changeCard, saveCard } from "../../services/CardService.ts";
+import { toast } from "react-toastify";
+import { Card } from "../../types/Card.ts";
 
 interface OrderModalProps {
     visible: boolean;
@@ -13,64 +13,70 @@ interface OrderModalProps {
     onEditCard: (card: Card) => void;
 }
 
-export function OrderModal({visible,onClose, onSaveCard, currentEdit, onEditCard}: OrderModalProps) {
-
+export function OrderModal({
+    visible,
+    onClose,
+    onSaveCard,
+    currentEdit,
+    onEditCard,
+}: OrderModalProps) {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
-    const [formValid, setFormValid] = useState<boolean> (false);
-    const [editing, setEditing] = useState<boolean> (false);
+    const [formValid, setFormValid] = useState<boolean>(false);
+    const [editing, setEditing] = useState<boolean>(false);
 
     useEffect(() => {
-        if(currentEdit){
+        if (currentEdit) {
             setTitle(currentEdit.titulo);
             setContent(currentEdit.conteudo);
             setEditing(true);
         }
 
         function handleKeyDown(event: KeyboardEvent) {
-            if (event.key === 'Escape') {
+            if (event.key === "Escape") {
                 onClose();
             }
         }
-        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener("keydown", handleKeyDown);
         return () => {
-            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener("keydown", handleKeyDown);
         };
-
-
-
     }, [onClose]);
 
-    function handleClose(){
+    function handleClose() {
         sanitize();
         onClose();
     }
-    function handleSaveCard(){
-        if(editing && currentEdit){
-            changeCard({_id: currentEdit._id, lista: currentEdit.lista, titulo: title, conteudo: content})
-                .then(card => onEditCard(card.data.card));
+    function handleSaveCard() {
+        if (editing && currentEdit) {
+            changeCard({
+                _id: currentEdit._id,
+                lista: currentEdit.lista,
+                titulo: title,
+                conteudo: content,
+            }).then((card) => onEditCard(card.data.card));
             toast.success("Tarefa alterada com sucesso");
-        }else{
-            saveCard(title, content).then(card => onSaveCard(card.data.card));
+        } else {
+            saveCard(title, content).then((card) => onSaveCard(card.data.card));
             toast.success("Tarefa salva com sucesso");
         }
         sanitize();
         onClose();
     }
 
-    function sanitize(){
-          setContent("");
-          setTitle("");
-          setEditing(false);
-          setFormValid(false);
+    function sanitize() {
+        setContent("");
+        setTitle("");
+        setEditing(false);
+        setFormValid(false);
     }
 
     if (!visible) {
         return null;
     }
 
-   function verifyFormValid(){
-        if(content.length > 0 && title.length > 0){
+    function verifyFormValid() {
+        if (content.length > 0 && title.length > 0) {
             setFormValid(true);
         }
     }
@@ -89,12 +95,21 @@ export function OrderModal({visible,onClose, onSaveCard, currentEdit, onEditCard
                 <header>
                     <strong>Nova tarefa</strong>
                     <button type="button" onClick={onClose}>
-                        <img src={closeIcon} alt="fechar modal"/>
+                        <img src={closeIcon} alt="fechar modal" />
                     </button>
                 </header>
                 <FormGroup>
-                    <input type="text" placeholder="título" value={title} onChange={handleTitleChange}/>
-                    <textarea placeholder="conteúdo" value={content} onChange={handleContentChange}></textarea>
+                    <input
+                        type="text"
+                        placeholder="título"
+                        value={title}
+                        onChange={handleTitleChange}
+                    />
+                    <textarea
+                        placeholder="conteúdo"
+                        value={content}
+                        onChange={handleContentChange}
+                    ></textarea>
                     <small>todos os campos são necessários*</small>
                 </FormGroup>
                 <Actions>
@@ -102,13 +117,15 @@ export function OrderModal({visible,onClose, onSaveCard, currentEdit, onEditCard
                         disabled={!formValid}
                         onClick={handleSaveCard}
                         type="button"
-                        className="primary">
+                        className="primary"
+                    >
                         <strong>Salvar</strong>
                     </button>
                     <button
                         onClick={handleClose}
                         type="button"
-                        className="secondary">
+                        className="secondary"
+                    >
                         <strong>Cancelar</strong>
                     </button>
                 </Actions>

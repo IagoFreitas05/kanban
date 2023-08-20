@@ -7,23 +7,23 @@ export const Overlay = styled.div`
     top: 0px;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(4.5px);
-    position: fixed ;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
 `;
 
 export const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 20px;
-    input{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+    input {
         border-radius: 4px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         padding: 16px;
     }
-    textarea{
+    textarea {
         border-radius: 4px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         padding: 16px;
@@ -117,12 +117,11 @@ export const OrderDetails = styled.div`
     }
 `;
 
-
 export const Actions = styled.footer`
     display: flex;
     flex-direction: column;
     margin-top: 32px;
-    .primary{
+    .primary {
         background: #333;
         border-radius: 48px;
         border: 0;
@@ -134,14 +133,14 @@ export const Actions = styled.footer`
         gap: 8px;
     }
 
-    button:disabled{
+    button:disabled {
         opacity: 0.5;
         cursor: not-allowed;
     }
 
-    .secondary{
+    .secondary {
         padding: 14px 24px;
-        color: #D73035;
+        color: #d73035;
         background: transparent;
         border: 0;
         font-weight: bold;

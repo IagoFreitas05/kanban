@@ -9,7 +9,8 @@
     "build": "tsc",
     "dev": "nodemon src/index.ts",
     "start": "node dist",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write ."
   },
   "jest": {
     "preset": "ts-jest",

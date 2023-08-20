@@ -1,8 +1,7 @@
-
 import { Board, OrdersContainer } from "./style";
 import { Card } from "../../types/Card.ts";
-import {changeCard, deleteCard} from "../../services/CardService.ts";
-import {toast} from "react-toastify";
+import { changeCard, deleteCard } from "../../services/CardService.ts";
+import { toast } from "react-toastify";
 
 interface OrdersBoardProps {
     icon: string;
@@ -13,19 +12,27 @@ interface OrdersBoardProps {
     onCurrentEdited: (card: Card) => void;
 }
 
-export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderStatus, onCurrentEdited }: OrdersBoardProps) {
-    function handleCancelOrder(id: string){
-        deleteCard(id).then(() => toast.success("Tarefa removida"))
+export function OrdersBoard({
+    icon,
+    title,
+    orders,
+    onCancelOrder,
+    onChangeOrderStatus,
+    onCurrentEdited,
+}: OrdersBoardProps) {
+    function handleCancelOrder(id: string) {
+        deleteCard(id)
+            .then(() => toast.success("Tarefa removida"))
             .catch(() => toast.error("Não foi possível remover a tarefa"));
         onCancelOrder(id);
     }
 
-    function handleChangeList(card: Card){
+    function handleChangeList(card: Card) {
         let updatedStatus = card.lista;
 
-        if(updatedStatus === "TO_DO"){
-             updatedStatus = "DOING"
-        }else{
+        if (updatedStatus === "TO_DO") {
+            updatedStatus = "DOING";
+        } else {
             updatedStatus = "DONE";
         }
         card.lista = updatedStatus;
@@ -33,7 +40,7 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderS
         onChangeOrderStatus(card._id, updatedStatus);
     }
 
-    function handleEdited(card: Card){
+    function handleEdited(card: Card) {
         onCurrentEdited(card);
     }
 
@@ -49,12 +56,30 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderS
                     {orders.map((card) => (
                         <>
                             <div key={card._id}>
-                                <strong><button  onClick={() => handleEdited(card)}>✎</button> {card.titulo}</strong>
+                                <strong>
+                                    <button onClick={() => handleEdited(card)}>
+                                        ✎
+                                    </button>{" "}
+                                    {card.titulo}
+                                </strong>
                                 <span className="content">{card.conteudo}</span>
                                 <span className="buttons-container">
-                                    <button onClick={() => handleCancelOrder(card._id)}>🗑️</button>
+                                    <button
+                                        onClick={() =>
+                                            handleCancelOrder(card._id)
+                                        }
+                                    >
+                                        🗑️
+                                    </button>
                                     {card.lista != "DONE" && (
-                                        <button onClick={() => handleChangeList(card)}> → </button>
+                                        <button
+                                            onClick={() =>
+                                                handleChangeList(card)
+                                            }
+                                        >
+                                            {" "}
+                                            →{" "}
+                                        </button>
                                     )}
                                 </span>
                             </div>

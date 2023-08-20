@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-    background: #D73035;
+    background: #d73035;
     display: flex;
     justify-content: center;
     height: 198px;
@@ -16,11 +16,11 @@ export const Content = styled.div`
     justify-content: space-between;
 
     .page-details {
-        h1{
+        h1 {
             color: #fff;
             font-size: 32px;
         }
-        h2{
+        h2 {
             color: #fff;
             font-weight: 400;
             font-size: 16px;

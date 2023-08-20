@@ -1,9 +1,9 @@
-import logo from "../../assets/images/logo.svg"
+import logo from "../../assets/images/logo.svg";
 
 import { Container, Content } from "./styles";
 
-export function Header(){
-    return(
+export function Header() {
+    return (
         <Container>
             <Content>
                 <div className="page-details">

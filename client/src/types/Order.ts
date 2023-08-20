@@ -1,14 +1,14 @@
-export interface Order{
+export interface Order {
     _id: string;
     table: string;
     status: "WAITING" | "IN_PRODUCTION" | "DONE";
     products: {
         _id: string;
         quantity: number;
-        product:{
+        product: {
             name: string;
-            imagePath:string;
+            imagePath: string;
             price: number;
-        }
+        };
     }[];
 }
