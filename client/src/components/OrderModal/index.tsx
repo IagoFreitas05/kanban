@@ -1,8 +1,7 @@
 import {useEffect, useState} from 'react';
 import closeIcon from '../../assets/images/close-icon.svg';
-import {Order} from '../../types/Order';
 import {ModalBody, Overlay, Actions, FormGroup} from './styles';
-import {saveCard} from "../../services/CardService.ts";
+import {changeCard, saveCard} from "../../services/CardService.ts";
 import {toast} from "react-toastify";
 import {Card} from "../../types/Card.ts";
 
@@ -10,15 +9,24 @@ interface OrderModalProps {
     visible: boolean;
     onClose: () => void;
     onSaveCard: (card: Card) => void;
-
+    currentEdit?: Card;
+    onEditCard: (card: Card) => void;
 }
 
-export function OrderModal({visible,onClose, onSaveCard}: OrderModalProps) {
+export function OrderModal({visible,onClose, onSaveCard, currentEdit, onEditCard}: OrderModalProps) {
+
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [formValid, setFormValid] = useState<boolean> (false);
+    const [editing, setEditing] = useState<boolean> (false);
 
     useEffect(() => {
+        if(currentEdit){
+            setTitle(currentEdit.titulo);
+            setContent(currentEdit.conteudo);
+            setEditing(true);
+        }
+
         function handleKeyDown(event: KeyboardEvent) {
             if (event.key === 'Escape') {
                 onClose();
@@ -29,15 +37,25 @@ export function OrderModal({visible,onClose, onSaveCard}: OrderModalProps) {
             document.removeEventListener('keydown', handleKeyDown);
         };
 
+
+
     }, [onClose]);
 
     function handleSaveCard(){
-        saveCard(title, content).then(card => onSaveCard(card.data.card));
+        if(editing && currentEdit){
+            changeCard({_id: currentEdit._id, lista: currentEdit.lista, titulo: title, conteudo: content})
+                .then(card => onEditCard(card.data.card));
+            toast.success("Tarefa alterada com sucesso");
+        }else{
+            saveCard(title, content).then(card => onSaveCard(card.data.card));
+            toast.success("Tarefa salva com sucesso");
+        }
+
         setContent("");
         setTitle("");
         onClose();
         setFormValid(false);
-        toast.success("Tarefa salva com sucesso");
+
     }
 
     if (!visible) {

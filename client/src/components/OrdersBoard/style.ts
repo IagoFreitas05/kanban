@@ -48,6 +48,12 @@ export const OrdersContainer = styled.div`
 
         strong {
             font-weight: 500;
+            button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-left: 8px;
+            }
         }
 
         span {

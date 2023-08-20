@@ -10,7 +10,7 @@ import {toast} from "react-toastify";
 
 export function Orders() {
     const [cards, setCards] = useState<Card[]>([]);
-
+    const [currentEdited, setCurrentEdited] = useState<Card>();
     useEffect(() => {
         listCard().then(item => setCards(item.data))
         console.log(cards);
@@ -47,6 +47,21 @@ export function Orders() {
       setCards((prevState) => prevState.concat(card));
     }
 
+    function handleCurrentEdit(card: Card){
+        toast.info("editando: " + card.titulo)
+        setCurrentEdited(card);
+        setIsModalVisible(true);
+    }
+
+    function handleEditCard(editedCard: Card) {
+        setCards((prevState) =>
+            prevState.map((card) =>
+                card._id === editedCard._id ? { ...editedCard } : card
+            )
+        );
+    }
+
+
     const [isModalVisibile, setIsModalVisible] = useState(false);
 
     return (
@@ -55,6 +70,8 @@ export function Orders() {
                 visible={isModalVisibile}
                 onClose={handleCloseModal}
                 onSaveCard={handleSaveCard}
+                currentEdit={currentEdited}
+                onEditCard={handleEditCard}
             />
             <Container>
                 <Button onClick={handleOpenModal} type="button">nova tarefa</Button>
@@ -67,6 +84,7 @@ export function Orders() {
                     orders={todo}
                     onCancelOrder={handleCancelOrder}
                     onChangeOrderStatus={handleOrderStatusChange}
+                    onCurrentEdited={handleCurrentEdit}
                 />
                 <OrdersBoard
                     icon="👨🏻‍🍳"
@@ -74,6 +92,7 @@ export function Orders() {
                     orders={doing}
                     onCancelOrder={handleCancelOrder}
                     onChangeOrderStatus={handleOrderStatusChange}
+                    onCurrentEdited={handleCurrentEdit}
                 />
                 <OrdersBoard
                     icon="✅"
@@ -81,6 +100,7 @@ export function Orders() {
                     orders={done}
                     onCancelOrder={handleCancelOrder}
                     onChangeOrderStatus={handleOrderStatusChange}
+                    onCurrentEdited={handleCurrentEdit}
                 />
             </Container>
         </>
