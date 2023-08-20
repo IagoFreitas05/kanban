@@ -9,37 +9,22 @@ services:
       - mongodb_data:/data/db
     networks:
       - app-network
-
-  express-app:
-    image: node:18
-    container_name: express-app
-    working_dir: /service
-    volumes:
-      - ./service:/service
-    ports:
-      - "8080:8080"
-    environment:
-      NODE_ENV: production
-    command: >
-      sh -c " yarn install && yarn build && yarn start"
-    depends_on:
-      - mongodb
-    networks:
-      - app-network
-  react-app:
-    image: node:18
-    container_name: react-app
-    working_dir: /client
-    volumes:
-      - ./client:/client
+  web-service:
+    build:
+      context: .
+      dockerfile: ./service/Dockerfile
     ports:
       - "3000:3000"
-    environment:
-      NODE_ENV: development
-    command: >
-      sh -c "yarn install && yarn build && npx serve -s build"
-    networks:
-      - app-network
+    volumes:
+      - ./service:/app
+  web-client:
+      build:
+        context: .
+        dockerfile: ./client/Dockerfile
+      ports:
+        - "3001:3000"
+      volumes:
+        - ./client:/app
 
 networks:
   app-network:
