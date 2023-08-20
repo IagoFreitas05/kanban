@@ -13,6 +13,23 @@ export const Overlay = styled.div`
     align-items: center;
 `;
 
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+    input{
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 16px;
+    }
+    textarea{
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 16px;
+    }
+`;
+
 export const ModalBody = styled.div`
     background: #fff;
     width: 480px;

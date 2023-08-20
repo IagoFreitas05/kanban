@@ -1,71 +1,81 @@
 import {Order} from '../../types/Order';
 import {OrdersBoard} from '../OrdersBoard';
-import {Container} from './styles';
+import {Button, Container} from './styles';
 import {useEffect, useState} from 'react';
-import {api} from '../../utils/api.ts';
-import socketIo from "socket.io-client";
-import {toast} from 'react-toastify';
+import {listCard} from "../../services/CardService.ts";
+import {Card} from "../../types/Card.ts";
+import {OrderModal} from "../OrderModal";
+
 
 export function Orders() {
-    const [orders, setOrders] = useState<Order[]>([]);
+    const [cards, setCards] = useState<Card[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        const socket = socketIo("http://localhost:3001",{
-            transports:["websocket"],
-        });
-
-        socket.on("orders@new", (order : Order) => {
-            setOrders(prevState => prevState.concat(order));
-            toast.success(`Novo pedido na mesa ${order.table}`);
-        });
-
+        listCard().then(item => setCards(item.data))
+        console.log(cards);
     }, []);
 
-    useEffect(() => {
-        api.get('/orders').then(({data}) => {
-            setOrders(data);
-        });
-    }, []);
-
-    const waiting = orders.filter((order) => order.status === 'WAITING');
-    const inProduction = orders.filter((order) => order.status === 'IN_PRODUCTION');
-    const done = orders.filter((order) => order.status === 'DONE');
+    const done = cards.filter((card) => card.lista === 'DONE');
+    const todo = cards.filter((card) => card.lista === 'TO_DO');
+    const doing = cards.filter((card) => card.lista === 'DOING');
 
     function handleCancelOrder(orderId: string) {
-        setOrders((prevState) => prevState.filter(order => order._id !== orderId));
+        setCards((prevState) => prevState.filter(card => card._id !== orderId));
     }
 
     function handleOrderStatusChange(orderId: string, status: Order['status']) {
-        setOrders((prevState) => prevState.map((order) => (
-            order._id === orderId
-                ? {...order, status}
-                : order
+        setCards((prevState) => prevState.map((card) => (
+            card._id === orderId
+                ? {...card, status}
+                : card
         )));
     }
 
+    function handleCloseModal() {
+        setIsModalVisible(false);
+    }
+
+    function handleOpenModal() {
+        setIsModalVisible(true);
+    }
+
+    const [isModalVisibile, setIsModalVisible] = useState(false);
+
     return (
-        <Container>
-            <OrdersBoard
-                icon="🕒"
-                title="ToDo"
-                orders={waiting}
-                onCancelOrder={handleCancelOrder}
-                onChangeOrderStatus={handleOrderStatusChange}
+        <>
+            <OrderModal
+                visible={isModalVisibile}
+                onClose={handleCloseModal}
+                isLoading={isLoading}
             />
-            <OrdersBoard
-                icon="👨🏻‍🍳"
-                title="Doing"
-                orders={inProduction}
-                onCancelOrder={handleCancelOrder}
-                onChangeOrderStatus={handleOrderStatusChange}
-            />
-            <OrdersBoard
-                icon="✅"
-                title="Done"
-                orders={done}
-                onCancelOrder={handleCancelOrder}
-                onChangeOrderStatus={handleOrderStatusChange}
-            />
-        </Container>
+            <Container>
+                <Button onClick={handleOpenModal} type="button">nova tarefa</Button>
+            </Container>
+
+            <Container>
+                <OrdersBoard
+                    icon="🕒"
+                    title="ToDo"
+                    orders={todo}
+                    onCancelOrder={handleCancelOrder}
+                    onChangeOrderStatus={handleOrderStatusChange}
+                />
+                <OrdersBoard
+                    icon="👨🏻‍🍳"
+                    title="Doing"
+                    orders={doing}
+                    onCancelOrder={handleCancelOrder}
+                    onChangeOrderStatus={handleOrderStatusChange}
+                />
+                <OrdersBoard
+                    icon="✅"
+                    title="Done"
+                    orders={done}
+                    onCancelOrder={handleCancelOrder}
+                    onChangeOrderStatus={handleOrderStatusChange}
+                />
+            </Container>
+        </>
     );
 }

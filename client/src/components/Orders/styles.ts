@@ -8,3 +8,10 @@ export const Container = styled.div`
     gap: 32px;
 `;
 
+export const Button = styled.button`
+    background-color: #D73035;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+`;
