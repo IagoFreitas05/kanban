@@ -8,10 +8,7 @@ import {Card} from "../../types/Card.ts";
 
 interface OrderModalProps {
     visible: boolean;
-    order: Order | null;
     onClose: () => void;
-    onCancelOrder: () => Promise<null | undefined>;
-    onChangeOrderStatus: () => void;
     onSaveCard: (card: Card) => void;
 
 }

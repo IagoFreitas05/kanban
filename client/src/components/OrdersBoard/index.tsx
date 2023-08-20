@@ -9,14 +9,18 @@ interface OrdersBoardProps {
     title: string;
     orders: Card[];
     onCancelOrder: (orderId: string) => void;
-    onChangeOrderStatus: (orderId: string, status: Card["lista"]) => void;
+    onChangeOrderStatus: (orderId: string, lista: Card["lista"]) => void;
 }
 
-export function OrdersBoard({ icon, title, orders, onCancelOrder }: OrdersBoardProps) {
+export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderStatus }: OrdersBoardProps) {
     function handleCancelOrder(id: string){
         deleteCard(id).then(() => toast.success("Tarefa removida"))
             .catch(() => toast.error("Não foi possível remover a tarefa"));
         onCancelOrder(id);
+    }
+
+    function handleChangeList(id: string, lista: Card["lista"]){
+        onChangeOrderStatus(id, "DOING");
     }
     return (
         <Board>
@@ -35,7 +39,7 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder }: OrdersBoardP
                                 <span className="buttons-container">
                                     <button onClick={() => handleCancelOrder(card._id)}>🗑️</button>
                                     {card.lista != "DONE" && (
-                                        <button> → </button>
+                                        <button onClick={() => handleChangeList(card._id, card.lista)}> → </button>
                                     )}
                                 </span>
                             </div>

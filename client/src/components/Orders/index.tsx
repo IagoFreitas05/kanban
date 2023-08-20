@@ -23,7 +23,7 @@ export function Orders() {
         setCards((prevState) => prevState.filter(card => card._id !== orderId));
     }
 
-    function handleOrderStatusChange(orderId: string, status: Order['status']) {
+    function handleOrderStatusChange(orderId: string, status: Card['lista']) {
         setCards((prevState) => prevState.map((card) => (
             card._id === orderId
                 ? {...card, status}
