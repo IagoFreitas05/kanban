@@ -39,6 +39,10 @@ export function Orders() {
         setIsModalVisible(true);
     }
 
+    function handleSaveCard(card : Card){
+      setCards((prevState) => prevState.concat(card));
+    }
+
     const [isModalVisibile, setIsModalVisible] = useState(false);
 
     return (
@@ -46,6 +50,7 @@ export function Orders() {
             <OrderModal
                 visible={isModalVisibile}
                 onClose={handleCloseModal}
+                onSaveCard={handleSaveCard}
             />
             <Container>
                 <Button onClick={handleOpenModal} type="button">nova tarefa</Button>

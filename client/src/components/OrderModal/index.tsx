@@ -4,6 +4,7 @@ import {Order} from '../../types/Order';
 import {ModalBody, Overlay, Actions, FormGroup} from './styles';
 import {saveCard} from "../../services/CardService.ts";
 import {toast} from "react-toastify";
+import {Card} from "../../types/Card.ts";
 
 interface OrderModalProps {
     visible: boolean;
@@ -11,10 +12,11 @@ interface OrderModalProps {
     onClose: () => void;
     onCancelOrder: () => Promise<null | undefined>;
     onChangeOrderStatus: () => void;
+    onSaveCard: (card: Card) => void;
 
 }
 
-export function OrderModal({visible,onClose}: OrderModalProps) {
+export function OrderModal({visible,onClose, onSaveCard}: OrderModalProps) {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [formValid, setFormValid] = useState<boolean> (false);
@@ -32,8 +34,8 @@ export function OrderModal({visible,onClose}: OrderModalProps) {
 
     }, [onClose]);
 
-    function onSaveCard(){
-        saveCard(title, content);
+    function handleSaveCard(){
+        saveCard(title, content).then(card => onSaveCard(card.data.card));
         setContent("");
         setTitle("");
         onClose();
@@ -76,7 +78,7 @@ export function OrderModal({visible,onClose}: OrderModalProps) {
                 <Actions>
                     <button
                         disabled={!formValid}
-                        onClick={onSaveCard}
+                        onClick={handleSaveCard}
                         type="button"
                         className="primary">
                         <strong>Salvar</strong>
