@@ -1,5 +1,6 @@
 import { api } from "../utils/api.ts";
 import {toast} from "react-toastify";
+import {Card} from "../types/Card.ts";
 
 const token = localStorage.getItem("token");
 
@@ -34,6 +35,27 @@ export async function saveCard(titulo: string, conteudo: string) {
         );
     } catch (e) {
         toast.error("não foi possível salvar esse card");
+    }
+}
+
+export async function changeCard(card: Card) {
+    try {
+        return await api.put(
+            `/cards/${card._id}`,
+            {
+                titulo: card.titulo,
+                conteudo: card.conteudo,
+                lista: card.lista,
+            },
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+    } catch (e) {
+        toast.error("não foi possível atualizar esse card");
     }
 }
 

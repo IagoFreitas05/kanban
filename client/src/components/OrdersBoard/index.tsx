@@ -1,7 +1,7 @@
 
 import { Board, OrdersContainer } from "./style";
 import { Card } from "../../types/Card.ts";
-import {deleteCard} from "../../services/CardService.ts";
+import {changeCard, deleteCard} from "../../services/CardService.ts";
 import {toast} from "react-toastify";
 
 interface OrdersBoardProps {
@@ -19,14 +19,17 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderS
         onCancelOrder(id);
     }
 
-    function handleChangeList(id: string, lista: Card["lista"]){
-        let updatedStatus = lista;
-        if(lista === "TO_DO"){
+    function handleChangeList(card: Card){
+        let updatedStatus = card.lista;
+
+        if(updatedStatus === "TO_DO"){
              updatedStatus = "DOING"
         }else{
             updatedStatus = "DONE";
         }
-        onChangeOrderStatus(id, updatedStatus);
+        card.lista = updatedStatus;
+        changeCard(card);
+        onChangeOrderStatus(card._id, updatedStatus);
     }
     return (
         <Board>
@@ -45,7 +48,7 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderS
                                 <span className="buttons-container">
                                     <button onClick={() => handleCancelOrder(card._id)}>🗑️</button>
                                     {card.lista != "DONE" && (
-                                        <button onClick={() => handleChangeList(card._id, card.lista)}> → </button>
+                                        <button onClick={() => handleChangeList(card)}> → </button>
                                     )}
                                 </span>
                             </div>

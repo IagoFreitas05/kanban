@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import {listCard} from "../../services/CardService.ts";
 import {Card} from "../../types/Card.ts";
 import {OrderModal} from "../OrderModal";
+import {toast} from "react-toastify";
 
 
 export function Orders() {
@@ -24,12 +25,14 @@ export function Orders() {
     }
 
     function handleOrderStatusChange(orderId: string, status: Card['lista']) {
-        // ajustar os cards
+       const card = cards.filter((card) => card._id === orderId);
+       card[0].lista = status;
         setCards((prevState) => prevState.map((card) => (
             card._id === orderId
                 ? {...card, status}
                 : card
         )));
+        toast.success("Tarefa movida com sucesso")
     }
 
     function handleCloseModal() {
