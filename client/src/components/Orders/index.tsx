@@ -37,6 +37,7 @@ export function Orders() {
 
     function handleCloseModal() {
         setIsModalVisible(false);
+        setCurrentEdited(undefined);
     }
 
     function handleOpenModal() {
@@ -59,6 +60,8 @@ export function Orders() {
                 card._id === editedCard._id ? { ...editedCard } : card
             )
         );
+
+        setCurrentEdited(undefined);
     }
 
 

@@ -41,6 +41,10 @@ export function OrderModal({visible,onClose, onSaveCard, currentEdit, onEditCard
 
     }, [onClose]);
 
+    function handleClose(){
+        sanitize();
+        onClose();
+    }
     function handleSaveCard(){
         if(editing && currentEdit){
             changeCard({_id: currentEdit._id, lista: currentEdit.lista, titulo: title, conteudo: content})
@@ -50,12 +54,15 @@ export function OrderModal({visible,onClose, onSaveCard, currentEdit, onEditCard
             saveCard(title, content).then(card => onSaveCard(card.data.card));
             toast.success("Tarefa salva com sucesso");
         }
-
-        setContent("");
-        setTitle("");
+        sanitize();
         onClose();
-        setFormValid(false);
+    }
 
+    function sanitize(){
+          setContent("");
+          setTitle("");
+          setEditing(false);
+          setFormValid(false);
     }
 
     if (!visible) {
@@ -99,7 +106,7 @@ export function OrderModal({visible,onClose, onSaveCard, currentEdit, onEditCard
                         <strong>Salvar</strong>
                     </button>
                     <button
-                        onClick={onClose}
+                        onClick={handleClose}
                         type="button"
                         className="secondary">
                         <strong>Cancelar</strong>
