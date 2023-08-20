@@ -14,7 +14,6 @@ export async function authUser(){
         });
         const token = response.data.token;
         localStorage.setItem("token", token);
-        toast.success("usuário autenticado com sucesso");
     } catch (error) {
        toast.error("não foi possível autenticar");
     }

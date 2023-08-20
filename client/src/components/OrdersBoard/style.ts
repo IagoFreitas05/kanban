@@ -23,7 +23,8 @@ export const OrdersContainer = styled.div`
     flex-direction: column;
     width: 100%;
     margin-top: 24px;
-    button {
+
+    div {
         background: #fff;
         border: 1px solid rgba(204, 204, 204, 0.4);
         height: 128px;
@@ -31,11 +32,18 @@ export const OrdersContainer = styled.div`
         width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-between; // Adjusted to space between content and buttons
+        align-items: flex-start; // Adjusted to align content to the left
         gap: 4px;
-        & + button {
-            margin-top: 24px;
+        padding: 12px; // Added padding for better spacing
+        .content {
+            max-width: 100%; /* Ensure text doesn't exceed the card's width */
+            white-space: normal; /* Allow text to wrap within the container */
+            overflow: hidden; /* Optional: Handle overflow if text gets too long */
+            text-overflow: ellipsis;
+        }
+        & + div {
+            margin-top: 12px;
         }
 
         strong {
@@ -46,5 +54,21 @@ export const OrdersContainer = styled.div`
             font-size: 14px;
             color: #666;
         }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-left: 8px;
+            }
+        }
+
+
+
     }
 `;

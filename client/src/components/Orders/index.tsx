@@ -9,7 +9,6 @@ import {OrderModal} from "../OrderModal";
 
 export function Orders() {
     const [cards, setCards] = useState<Card[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         listCard().then(item => setCards(item.data))
@@ -47,7 +46,6 @@ export function Orders() {
             <OrderModal
                 visible={isModalVisibile}
                 onClose={handleCloseModal}
-                isLoading={isLoading}
             />
             <Container>
                 <Button onClick={handleOpenModal} type="button">nova tarefa</Button>

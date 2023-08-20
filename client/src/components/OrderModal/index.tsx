@@ -2,20 +2,19 @@ import {useEffect, useState} from 'react';
 import closeIcon from '../../assets/images/close-icon.svg';
 import {Order} from '../../types/Order';
 import {ModalBody, Overlay, Actions, FormGroup} from './styles';
-import {api} from "../../utils/api.ts";
 import {saveCard} from "../../services/CardService.ts";
+import {toast} from "react-toastify";
 
 interface OrderModalProps {
     visible: boolean;
     order: Order | null;
     onClose: () => void;
     onCancelOrder: () => Promise<null | undefined>;
-    isLoading: boolean;
     onChangeOrderStatus: () => void;
 
 }
 
-export function OrderModal({visible,onClose, isLoading}: OrderModalProps) {
+export function OrderModal({visible,onClose}: OrderModalProps) {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [formValid, setFormValid] = useState<boolean> (false);
@@ -39,6 +38,7 @@ export function OrderModal({visible,onClose, isLoading}: OrderModalProps) {
         setTitle("");
         onClose();
         setFormValid(false);
+        toast.success("Tarefa salva com sucesso");
     }
 
     if (!visible) {
@@ -82,7 +82,6 @@ export function OrderModal({visible,onClose, isLoading}: OrderModalProps) {
                         <strong>Salvar</strong>
                     </button>
                     <button
-                        disabled={isLoading}
                         onClick={onClose}
                         type="button"
                         className="secondary">

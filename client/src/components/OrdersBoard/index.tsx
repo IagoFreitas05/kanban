@@ -1,20 +1,23 @@
-import {useState} from 'react';
-import {Order} from '../../types/Order';
-import {Board, OrdersContainer} from './style';
-import {api} from '../../utils/api.ts';
-import {toast} from 'react-toastify';
-import {Card} from "../../types/Card.ts";
+
+import { Board, OrdersContainer } from "./style";
+import { Card } from "../../types/Card.ts";
+import {deleteCard} from "../../services/CardService.ts";
+import {toast} from "react-toastify";
 
 interface OrdersBoardProps {
     icon: string;
     title: string;
     orders: Card[];
     onCancelOrder: (orderId: string) => void;
-    onChangeOrderStatus: (orderId: string, status: Order["status"]) =>  void;
+    onChangeOrderStatus: (orderId: string, status: Card["lista"]) => void;
 }
 
-export function OrdersBoard({icon, title, orders}: OrdersBoardProps) {
+function removeOrder(id: string){
+    deleteCard(id).then(() => toast.success("Tarefa removida"))
+        .catch(() => toast.error("Não foi possível remover a tarefa"));
+}
 
+export function OrdersBoard({ icon, title, orders }: OrdersBoardProps) {
     return (
         <Board>
             <header>
@@ -25,12 +28,16 @@ export function OrdersBoard({icon, title, orders}: OrdersBoardProps) {
             {orders.length > 0 && (
                 <OrdersContainer>
                     {orders.map((card) => (
-                        <button
-                            type="button"
-                            key={card._id}>
-                            <strong>{card.titulo}</strong>
-                            <span>{card.conteudo} itens</span>
-                        </button>
+                        <>
+                            <div key={card._id}>
+                                <strong>{card.titulo}</strong>
+                                <span className="content">{card.conteudo}</span>
+                                <span className="buttons-container">
+                                    <button onClick={() => removeOrder(card._id)}>🗑️</button>
+                                    <button> → </button>
+                                </span>
+                            </div>
+                        </>
                     ))}
                 </OrdersContainer>
             )}

@@ -1,5 +1,5 @@
 import { api } from "../utils/api.ts";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 
 const token = localStorage.getItem("token");
 
@@ -36,3 +36,19 @@ export async function saveCard(titulo: string, conteudo: string) {
         toast.error("não foi possível salvar esse card");
     }
 }
+
+export async function deleteCard(id: string) {
+    try {
+        return await api.delete(
+            `cards/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+    } catch (e) {
+        return e;
+    }
+}
+
