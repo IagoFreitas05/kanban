@@ -24,6 +24,7 @@ export function Orders() {
     }
 
     function handleOrderStatusChange(orderId: string, status: Card['lista']) {
+        // ajustar os cards
         setCards((prevState) => prevState.map((card) => (
             card._id === orderId
                 ? {...card, status}

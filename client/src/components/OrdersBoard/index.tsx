@@ -20,7 +20,13 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderS
     }
 
     function handleChangeList(id: string, lista: Card["lista"]){
-        onChangeOrderStatus(id, "DOING");
+        let updatedStatus = lista;
+        if(lista === "TO_DO"){
+             updatedStatus = "DOING"
+        }else{
+            updatedStatus = "DONE";
+        }
+        onChangeOrderStatus(id, updatedStatus);
     }
     return (
         <Board>
