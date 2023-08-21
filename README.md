@@ -58,3 +58,5 @@ Os restantes endpoints que a aplicação possuí são os listados abaixo, vale l
 (DELETE)    http://0.0.0.0:5000/cards/{id}
 
 ```
+
+Vale lembrar que todos os endpoins necessitam da autenticação com o header ```json {"Authorization: Bearer {token}"}```, exceto o endpoint de login, qual você pode setar o usuário e senha que será criado através das variáveis de ambiente tanto do service quanto no client, não se esqueça de setar os valores usando o arquivo ```.env```.
