@@ -63,7 +63,7 @@ export function OrdersBoard({
                                 <strong>
                                     <button onClick={() => handleEdited(card)}>
                                         ✎
-                                    </button>{" "}
+                                    </button>
                                     {card.titulo}
                                 </strong>
                                 <span
@@ -86,8 +86,7 @@ export function OrdersBoard({
                                                 handleChangeList(card)
                                             }
                                         >
-                                            {" "}
-                                            →{" "}
+                                            →
                                         </button>
                                     )}
                                 </span>
