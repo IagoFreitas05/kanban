@@ -31,13 +31,26 @@ export function OrdersBoard({
         onCancelOrder(id);
     }
 
-    function handleChangeList(card: Card) {
+    function handleMoveFoward(card: Card) {
         let updatedStatus = card.lista;
 
         if (updatedStatus === "TO_DO") {
             updatedStatus = "DOING";
         } else {
             updatedStatus = "DONE";
+        }
+        card.lista = updatedStatus;
+        changeCard(card);
+        onChangeOrderStatus(card._id, updatedStatus);
+    }
+
+    function handleMoveBack(card:Card) {
+        let updatedStatus = card.lista;
+
+        if (updatedStatus === "DONE") {
+            updatedStatus = "DOING";
+        } else {
+            updatedStatus = "TO_DO";
         }
         card.lista = updatedStatus;
         changeCard(card);
@@ -74,16 +87,34 @@ export function OrdersBoard({
                                 />
                                 <span className="buttons-container">
                                     <button
+                                        className="delete-button"
                                         onClick={() =>
                                             handleCancelOrder(card._id)
                                         }
                                     >
-                                        🗑️
+                                        ️{card.lista == "DONE" && (
+                                            <span>✓</span>
+                                            ) }
+                                        {card.lista != "DONE" && (
+                                            <span>✕</span>
+                                        ) }
                                     </button>
+
+                                    {card.lista != "TO_DO" && (
+                                        <button
+                                            className="move-button"
+                                            onClick={() =>
+                                                handleMoveBack(card)
+                                            }
+                                        >
+                                            ←
+                                        </button>
+                                    )}
                                     {card.lista != "DONE" && (
                                         <button
+                                            className="move-button"
                                             onClick={() =>
-                                                handleChangeList(card)
+                                                handleMoveFoward(card)
                                             }
                                         >
                                             →

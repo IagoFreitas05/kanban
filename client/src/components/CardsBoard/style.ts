@@ -64,13 +64,26 @@ export const OrdersContainer = styled.div`
             display: flex;
             justify-content: space-between;
             width: 100%;
-
-            button {
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-                margin-left: 8px;
-            }
+            margin-top: 32px;
+            background-color: rgba(247, 247, 247, 0.8);
+            padding: 8px;
+            border-radius: 4px;
         }
+
+        .move-button,
+        .delete-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .move-button {
+            margin-right: 8px; /* Espaçamento entre os botões */
+        }
+
+        .delete-button {
+            margin-right: auto; /* Alinha o botão à direita */
+        }
+
     }
 `;
