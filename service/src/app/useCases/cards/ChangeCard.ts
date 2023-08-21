@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Card } from "../../models/Card";
-import {sanitize} from "isomorphic-dompurify";
-import {marked} from "marked";
+import { sanitize } from "isomorphic-dompurify";
+import { marked } from "marked";
 
 export async function changeCard(req: Request, res: Response) {
   const { titulo, conteudo, lista } = req.body;

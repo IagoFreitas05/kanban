@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { Card } from "../../models/Card";
-import {marked} from "marked";
-import {sanitize} from "isomorphic-dompurify";
-
+import { marked } from "marked";
+import { sanitize } from "isomorphic-dompurify";
 
 export async function createCard(req: Request, res: Response) {
   const { titulo, conteudo, lista } = req.body;
@@ -25,7 +24,6 @@ export async function createCard(req: Request, res: Response) {
   if (errors.length > 0) {
     res.status(400).json({ errors });
   } else {
-
     const sanitizedTest = sanitize(conteudo);
     const card = await Card.create({ conteudo: sanitizedTest, titulo, lista });
     res.status(200).json({ card });

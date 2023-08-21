@@ -2,7 +2,7 @@ import { Board, OrdersContainer } from "./style";
 import { Card } from "../../types/Card.ts";
 import { changeCard, deleteCard } from "../../services/CardService.ts";
 import { toast } from "react-toastify";
-import {marked} from 'marked';
+import { marked } from "marked";
 
 interface OrdersBoardProps {
     icon: string;
@@ -66,7 +66,12 @@ export function OrdersBoard({
                                     </button>{" "}
                                     {card.titulo}
                                 </strong>
-                                <span className="content" dangerouslySetInnerHTML={{ __html: convertToHtml(card.conteudo)  }} />
+                                <span
+                                    className="content"
+                                    dangerouslySetInnerHTML={{
+                                        __html: convertToHtml(card.conteudo),
+                                    }}
+                                />
                                 <span className="buttons-container">
                                     <button
                                         onClick={() =>

@@ -94,7 +94,7 @@ export function OrderModal({
             <ModalBody>
                 <header>
                     <strong>Nova tarefa</strong>
-                    <button type="button"    onClick={handleClose}>
+                    <button type="button" onClick={handleClose}>
                         <img src={closeIcon} alt="fechar modal" />
                     </button>
                 </header>
