@@ -10,8 +10,7 @@ export function Orders() {
     const [cards, setCards] = useState<Card[]>([]);
     const [currentEdited, setCurrentEdited] = useState<Card>();
     useEffect(() => {
-        listCard().then((item) => setCards(item.data));
-        console.log(cards);
+        listCard().then((item) => setCards(item?item.data:""));
     }, []);
 
     const done = cards.filter((card) => card.lista === "DONE");
