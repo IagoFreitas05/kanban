@@ -3,10 +3,10 @@ import { Button, Container } from "./styles";
 import { useEffect, useState } from "react";
 import { listCard } from "../../services/CardService.ts";
 import { Card } from "../../types/Card.ts";
-import { OrderModal } from "../CardModal";
+import { CardModal } from "../CardModal";
 import { toast } from "react-toastify";
 
-export function Orders() {
+export function Cards() {
     const [cards, setCards] = useState<Card[]>([]);
     const [currentEdited, setCurrentEdited] = useState<Card>();
     useEffect(() => {
@@ -67,7 +67,7 @@ export function Orders() {
 
     return (
         <>
-            <OrderModal
+            <CardModal
                 visible={isModalVisibile}
                 onClose={handleCloseModal}
                 onSaveCard={handleSaveCard}

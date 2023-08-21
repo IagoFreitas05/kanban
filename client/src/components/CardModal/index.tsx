@@ -13,7 +13,7 @@ interface OrderModalProps {
     onEditCard: (card: Card) => void;
 }
 
-export function OrderModal({
+export function CardModal({
     visible,
     onClose,
     onSaveCard,
