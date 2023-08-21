@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Card } from "../../models/Card";
+import {sanitize} from "isomorphic-dompurify";
+import {marked} from "marked";
 
 export async function changeCard(req: Request, res: Response) {
   const { titulo, conteudo, lista } = req.body;
@@ -17,9 +19,10 @@ export async function changeCard(req: Request, res: Response) {
   }
 
   try {
+    const sanitized = sanitize(conteudo);
     const card = await Card.findByIdAndUpdate(
       id,
-      { titulo, conteudo, lista },
+      { titulo, conteudo: sanitized, lista },
       { new: true },
     );
 

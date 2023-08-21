@@ -32,7 +32,7 @@ export const FormGroup = styled.div`
 
 export const ModalBody = styled.div`
     background: #fff;
-    width: 480px;
+    width: 620px;
     border-radius: 8px;
     padding: 32px;
     header {

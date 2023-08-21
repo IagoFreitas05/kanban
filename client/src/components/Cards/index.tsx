@@ -1,10 +1,10 @@
-import { Order } from "../../types/Order";
-import { OrdersBoard } from "../OrdersBoard";
+
+import { OrdersBoard } from "../CardsBoard";
 import { Button, Container } from "./styles";
 import { useEffect, useState } from "react";
 import { listCard } from "../../services/CardService.ts";
 import { Card } from "../../types/Card.ts";
-import { OrderModal } from "../OrderModal";
+import { OrderModal } from "../CardModal";
 import { toast } from "react-toastify";
 
 export function Orders() {

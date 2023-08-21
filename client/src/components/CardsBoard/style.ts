@@ -27,7 +27,6 @@ export const OrdersContainer = styled.div`
     div {
         background: #fff;
         border: 1px solid rgba(204, 204, 204, 0.4);
-        height: 128px;
         border-radius: 8px;
         width: 100%;
         display: flex;
